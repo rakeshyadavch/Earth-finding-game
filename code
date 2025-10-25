@@ -1,0 +1,53 @@
+import random
+
+print(" Welcome to the EARTH Hunt Game!")
+print("Find the hidden EARTH before your moves run out!\n")
+
+# Grid size
+SIZE = 5
+
+# Random positions
+earth = (random.randint(0, SIZE - 1), random.randint(0, SIZE - 1))
+blackhole = (random.randint(0, SIZE - 1), random.randint(0, SIZE - 1))
+astronut = (0, 0)
+moves = 10
+
+# Game loop
+while moves > 0:
+    print(f"\nYou are at position {astronut}. Moves left: {moves}")
+    move = input("Move (up/down/left/right): ").lower()
+
+    x, y = astronut
+
+    if move == "up" and x > 0:
+        x -= 1
+    elif move == "down" and x < SIZE - 1:
+        x += 1
+    elif move == "left" and y > 0:
+        y -= 1
+    elif move == "right" and y < SIZE - 1:
+        y += 1
+    else:
+        print(" Can't move that way!")
+        continue
+
+    player = (x, y)
+    moves -= 1
+
+    if player == earth:
+        print("\n You found the EARTH! You win! 🏆")
+        break
+    elif player == blackhole:
+        print("\n You fell into a BLACKHOLE! Game Over!")
+        break
+    else:
+        # Give hint
+        dx = abs(earth[0] - x)
+        dy = abs(earth[1] - y)
+        print(f" Hint: You are {dx + dy} steps away from the EARTH.")
+
+else:
+    print("\n Out of moves! The EARTH was at", earth)
+    print("Better luck next time!")
+
+print("\nThanks for playing! ")
